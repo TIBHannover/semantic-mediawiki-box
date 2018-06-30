@@ -1,0 +1,70 @@
+---
+- name: 0.1. php - add repository
+  apt_repository:
+    repo: "ppa:ondrej/php"
+    state: "present"
+    update_cache: yes
+
+# xdebug installation described in xdebug.yml
+- name: 0.2. php - install base packages
+  apt:
+    name: "{{ item }}"
+    state: "present"
+  with_items:
+      - "php7.0-common"
+      - "php7.0-cli"
+      - "php7.0-fpm"
+      - "php7.0-pgsql"
+      - "php7.0-mysql"
+      - "php7.0-gd"
+      - "php7.0-bz2"
+      - "php7.0-zip"
+      - "php7.0-json"
+      - "php7.0-xml"
+      - "php7.0-curl"
+      - "php7.0-intl"
+      - "php7.0-mbstring"
+      - "php7.0-bcmath"
+      - "php7.0-soap"
+      - "php7.0-opcache"
+      # - "php7.0-mcrypt"
+
+# for centos php-fpm
+- name: 1. Install nginx and php-fpm
+  package: name={{item}} state=present
+  with_items:
+  - nginx
+  - php-apc
+  # - php5-fpm
+  notify:
+  - reload nginx
+  - restart php-fpm
+
+- name: 2. Set php tunables
+  lineinfile: dest=/etc/php/7.0/fpm/php.ini
+              regexp="^;?{{item.key}}"
+              line="{{item.key}} = {{item.value}}"
+              backup=yes
+  with_dict: "{{tunables|default({})}}"
+  notify: restart mysql
+
+- name: 3. Install php packages
+  package: name={{item}} state=present
+  with_items: "{{php5_packages|default([])}}"
+  notify:
+  - restart php-fpm
+
+- name: 4. Enable nginx and php-fpm
+  service: name={{item}} enabled=yes state=started
+  with_items:
+  - nginx
+  - php7.0-fpm
+
+# On Ubuntus this is usually a TCP port. We'd rather use a unix socket...
+- name: 5. Set php-fpm socket location
+  lineinfile:
+    dest: /etc/php/7.0/fpm/pool.d/www.conf
+    regexp: '^listen ?='
+    line: 'listen = /run/php/php7.0-fpm.sock'
+  notify:
+  - restart php-fpm

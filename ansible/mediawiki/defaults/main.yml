@@ -1,0 +1,21 @@
+---
+instance_name: 'MediaWiki'
+subdomain: ''
+hostname: '{{ansible_fqdn}}'
+mediawiki_dir: ''
+mediawiki_path: '/srv/{{instance_name}}'
+mediawiki_language: 'en'
+server_name: '{% if subdomain %}{{subdomain}}.{% endif %}{{hostname}}'
+base_uri: 'http://{{server_name}}/{{mediawiki_dir}}'
+
+mediawiki_skins:
+- Vector
+
+admin_user:
+  name: root
+  pass: admin
+mediawiki_db:
+  connection: mysql
+  name: mw_{{instance_name}}
+  user: mw_{{ instance_name | truncate(16-3, True, '') }}
+  password: mediawiki

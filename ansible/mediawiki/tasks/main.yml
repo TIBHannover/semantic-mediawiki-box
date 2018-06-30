@@ -1,0 +1,75 @@
+---
+
+- name: 1. Clone mediawiki
+  git:
+    repo: 'https://gerrit.wikimedia.org/r/p/mediawiki/core.git'
+    dest: '{{ mediawiki_path }}'
+    version: "{{mediawiki_version|default('HEAD')}}"
+    depth: 1
+
+- include: composer.yml
+
+- name: 2. Install imagemagick
+  package:
+    name: imagemagick
+    state: present
+
+- name: 3. Install mediawiki dependencies
+  shell: composer install --no-dev
+  args:
+    chdir: '{{ mediawiki_path }}'
+  # become: no
+
+- include: mysql.yml
+  when: mediawiki_db.connection == "mysql"
+
+- name: 4. Install mediawiki skins
+  git:
+    repo: "https://gerrit.wikimedia.org/r/mediawiki/skins/{{item}}"
+    dest: "{{ mediawiki_path }}/skins/{{item}}"
+  with_items: '{{mediawiki_skins}}'
+
+- name: 5. Install mediawiki
+  command: php {{ mediawiki_path }}/maintenance/install.php
+    --dbname {{mediawiki_db.name}}
+    --dbuser {{mediawiki_db.user}}
+    --dbpass {{mediawiki_db.password}}
+    --dbtype {{mediawiki_db.connection}}
+    --lang {{mediawiki_language}}
+    --pass {{admin_user.pass}}
+    --scriptpath '{{mediawiki_dir}}'
+    {{instance_name}} {{admin_user.name}}
+  args:
+    creates: '{{ mediawiki_path }}/LocalSettings.php'
+
+- name: 6. Enable clean URL's
+  lineinfile:
+    dest: '{{ mediawiki_path }}/LocalSettings.php'
+    line: '$wgArticlePath = "/$1";'
+    regexp: '\$wgArticlePath'
+
+- name: 7a. Set MediWiki config in nginx
+  template:
+    src: mediawiki.nginx.conf.jinja2
+    dest: /etc/nginx/sites-available/mediawiki
+
+- name: 7b. Remove default
+  file:
+    name: /etc/nginx/sites-available/default
+    state: absent
+
+- name: 8a. Enable site
+  file:
+    src: /etc/nginx/sites-available/mediawiki
+    dest: /etc/nginx/sites-enabled/mediawiki
+    state: link
+
+- name: 8b. Disable default
+  file:
+    name: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: 9. Restart nginx
+  service:
+    name: nginx
+    state: restarted
