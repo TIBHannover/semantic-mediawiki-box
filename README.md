@@ -7,11 +7,11 @@ Dieses Projekt bietet die Möglichkeit, ein MediaWiki mit minimalem Aufwand in e
 
 Die folgenden Schritte im Terminal (Linux/macOS) oder in der GitBash (Windows) ausführen.
 ```
-git clone https://git.tib.eu/klingera/ansible-mediawiki.git
-cd ansible-mediawiki
+git clone https://git.tib.eu/boxes/semantic-mediawiki-box.git
+cd semantic-mediawiki-box
 vagrant up
 ```
-Wenn die Installation durchgelaufen ist (ca. 5min) kann das MediaWiki im Browser aufgerufen werden mit
+Wenn die Installation durchgelaufen ist (ca. 5min) kann das Semantic MediaWiki im Browser aufgerufen werden mit
 ```
 http://192.168.98.101/
 ```
