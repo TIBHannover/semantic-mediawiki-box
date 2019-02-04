@@ -6,6 +6,7 @@
     dest: '{{ mediawiki_path }}'
     version: "{{mediawiki_version|default('HEAD')}}"
     depth: 1
+    force: yes
 
 - include: composer.yml
 
