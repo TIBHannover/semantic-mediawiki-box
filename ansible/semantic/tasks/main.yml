@@ -1,11 +1,12 @@
 ---
 - name: Install semantic
-  shell: composer require mediawiki/semantic-media-wiki "~2.5" --update-no-dev
+  shell: composer require mediawiki/semantic-media-wiki "3.0.0" --update-no-dev
   args:
     chdir: '{{ mediawiki_path }}'
 
 - name: Run the maintenance script
-  shell: php maintenance/update.php --skip-external-dependencies
+  command: php maintenance/update.php --skip-external-dependencies
+  become: yes
   args:
     chdir: '{{ mediawiki_path }}'
 
