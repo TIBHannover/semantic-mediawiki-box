@@ -36,7 +36,7 @@
     state: present
   with_items:
   - nginx
-  - php-apc
+  - php-apcu
   # - php5-fpm
   notify:
   - reload nginx
