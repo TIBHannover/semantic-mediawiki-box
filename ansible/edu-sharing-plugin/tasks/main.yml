@@ -1,0 +1,79 @@
+---
+  - name: Clone Plugin
+    git:
+      repo: 'https://github.com/edu-sharing/plugin-mediawiki'
+      dest: '/home/vagrant/edu-sharing-plugin'
+      depth: 1
+      version: "release/4.1"
+      force: yes
+    tags:
+    - edu-sharing-plugin
+
+  - copy:
+      src: /home/vagrant/edu-sharing-plugin/extensions/edu-sharing
+      dest: "{{ mediawiki_path }}/extensions"
+    tags:
+    - edu-sharing-plugin
+
+  - name: LocalSettings configuration - wgEnableParserCache
+    lineinfile:
+      dest: '{{ mediawiki_path }}/LocalSettings.php'
+      line: '$wgEnableParserCache = false;'
+      regexp: '\$wgEnableParserCache'
+    tags:
+    - edu-sharing-plugin
+
+  - name: LocalSettings configuration - wgCachePages
+    lineinfile:
+      dest: '{{ mediawiki_path }}/LocalSettings.php'
+      line: '$wgCachePages = false;'
+      regexp: '\$wgCachePages'
+    tags:
+    - edu-sharing-plugin
+
+  - name: LocalSettings configuration - usebetatoolbar
+    lineinfile:
+      dest: '{{ mediawiki_path }}/LocalSettings.php'
+      line: '$wgDefaultUserOptions["usebetatoolbar"] = 1;'
+      regexp: '\$wgDefaultUserOptions["usebetatoolbar"]'
+    tags:
+    - edu-sharing-plugin
+
+  - name: LocalSettings configuration - usebetatoolbar-cgd
+    lineinfile:
+      dest: '{{ mediawiki_path }}/LocalSettings.php'
+      line: '$wgDefaultUserOptions["usebetatoolbar-cgd"] = 1;'
+      regexp: '\$wgDefaultUserOptions["usebetatoolbar\-cgd"]'
+    tags:
+    - edu-sharing-plugin
+
+  - name: LocalSettings configuration - wgAllowUserJs
+    lineinfile:
+      dest: '{{ mediawiki_path }}/LocalSettings.php'
+      line: '$wgAllowUserJs = true;'
+      regexp: '\$wgAllowUserJs'
+    tags:
+    - edu-sharing-plugin
+
+  - name: LocalSettings configuration - wfLoadExtension( 'WikiEditor' )
+    lineinfile:
+      dest: '{{ mediawiki_path }}/LocalSettings.php'
+      line: 'wfLoadExtension( "WikiEditor" );'
+      regexp: 'wfLoadExtension( "WikiEditor" )'
+    tags:
+    - edu-sharing-plugin
+
+  - name: LocalSettings configuration - require_once( "extensions/edu-sharing/edu-sharing.php" )
+    lineinfile:
+      dest: '{{ mediawiki_path }}/LocalSettings.php'
+      line: 'require_once( "$IP/extensions/edu-sharing/edu-sharing.php" );'
+      regexp: 'require_once( "\$IP/extensions/edu-sharing/edu\-sharing.php" )'
+    tags:
+    - edu-sharing-plugin
+
+  - name: Run the maintenance script
+    shell: php maintenance/update.php --skip-external-dependencies
+    args:
+      chdir: '{{ mediawiki_path }}'
+    tags:
+    - edu-sharing-plugin

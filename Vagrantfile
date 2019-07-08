@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
     local.ssh.insert_key = false
     local.vm.hostname = "mediawiki.box"
     local.vm.synced_folder ".", "/vagrant", create: true, disabled: false
-    local.vm.network :private_network, ip: "192.168.98.101"
+    local.vm.network :private_network, ip: "192.168.98.121"
 
     local.vm.provider :virtualbox do |vb|
       vb.name = "mediawiki"
@@ -23,5 +23,7 @@ Vagrant.configure("2") do |config|
     ansible.version = "latest"
     ansible.compatibility_mode = "2.0"
     ansible.playbook = "ansible/system.yml"
+    # comment/uncomment next line to activate/deavtivate pre-installation of edu-sharing-plugin (=> has to be finished manually, see README)
+    ansible.skip_tags = [ "edu-sharing-plugin" ]
   end
 end
