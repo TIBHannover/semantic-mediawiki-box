@@ -28,6 +28,7 @@
   git:
     repo: "https://gerrit.wikimedia.org/r/mediawiki/skins/{{item}}"
     dest: "{{ mediawiki_path }}/skins/{{item}}"
+    version: "{{mediawiki_version|default('HEAD')}}"
   with_items: '{{mediawiki_skins}}'
 
 - name: 5. Install mediawiki

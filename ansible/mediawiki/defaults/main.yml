@@ -5,7 +5,7 @@ hostname: '{{ansible_fqdn}}'
 mediawiki_dir: ''
 mediawiki_path: '/srv/{{instance_name}}'
 mediawiki_language: 'en'
-mediawiki_version: 1.33.0
+mediawiki_version: REL1_33
 server_name: '{% if subdomain %}{{subdomain}}.{% endif %}{{hostname}}'
 base_uri: 'http://{{server_name}}/{{mediawiki_dir}}'
 
