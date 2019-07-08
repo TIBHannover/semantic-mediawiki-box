@@ -5,7 +5,8 @@ hostname: '{{ansible_fqdn}}'
 mediawiki_dir: ''
 mediawiki_path: '/srv/{{instance_name}}'
 mediawiki_language: 'en'
-mediawiki_version: REL1_33
+# REL1_33 does not work with edu-shargin currently
+mediawiki_version: REL1_31
 server_name: '{% if subdomain %}{{subdomain}}.{% endif %}{{hostname}}'
 base_uri: 'http://{{server_name}}/{{mediawiki_dir}}'
 
