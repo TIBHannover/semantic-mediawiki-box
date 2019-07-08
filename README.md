@@ -51,7 +51,7 @@ vagrant ssh
     * Einloggen in edu-sharing als Administrator
     * Admin-Tools > Applications
         * Mediawiki anbinden indem die gerade erstellte xml-Datei hochgeladen wird
-* Ggf muss der Browser-Cache neu geladen werden damit der edu-sharing-Button in der Toolbar erscheint (Firefox zB via <Strg>+<F5>)
+* Ggf muss der Browser-Cache neu geladen werden damit der edu-sharing-Button in der Toolbar erscheint (Firefox zB via `<Strg>+<F5>`)
 
 
 ## Infrastructure as Code
