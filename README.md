@@ -30,6 +30,7 @@ vagrant ssh
         * inline_helper - Url zur Mediawiki-Erweiterung
         * alle edu-sharing-URL's anpassen
         * public key des edu-sharing-repos anpassen
+            * Der Key ist zu finden wenn man sich im edu-sharing als Admin einloggt unter 'Admin-Tools' > 'Applications' > 'homeApplication.properties.xml bearbeiten' oder direkt auf dem edu-sharing-System in dieser Datei
 * Edu-Sharing-Installation
     * app-wiki.properties.xml lokal erstellen und MEDIAWIKI_PUBLIC_KEY, MEDIAWIKI_DOMAIN, MEDIAWIKI_HOST eintragen
     ```
@@ -48,6 +49,7 @@ vagrant ssh
         <entry key="type">LMS</entry>
         </properties>
     ```
+        * Der MEDIAWIKI_PUBLIC_KEY ist zu finden in der der o.g. {{ mediawiki_path }}/extensions/edu-sharing/conf/homeApplication.properties.xml
     * Einloggen in edu-sharing als Administrator
     * Admin-Tools > Applications
         * Mediawiki anbinden indem die gerade erstellte xml-Datei hochgeladen wird
