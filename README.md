@@ -49,8 +49,7 @@ vagrant ssh
         <entry key="type">LMS</entry>
         </properties>
     ```
-    
-        * Der MEDIAWIKI_PUBLIC_KEY ist zu finden in der der o.g. {{ mediawiki_path }}/extensions/edu-sharing/conf/homeApplication.properties.xml
+    * Der MEDIAWIKI_PUBLIC_KEY ist zu finden in der der o.g. {{ mediawiki_path }}/extensions/edu-sharing/conf/homeApplication.properties.xml
     * Einloggen in edu-sharing als Administrator
     * Admin-Tools > Applications
         * Mediawiki anbinden indem die gerade erstellte xml-Datei hochgeladen wird
