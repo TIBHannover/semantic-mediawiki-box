@@ -23,6 +23,9 @@ Vagrant.configure("2") do |config|
     ansible.version = "latest"
     ansible.compatibility_mode = "2.0"
     ansible.playbook = "ansible/system.yml"
+    ansible.groups = {
+      "mediawiki" => ["local"],
+    }
     # comment/uncomment next line to activate/deavtivate pre-installation of edu-sharing-plugin (=> has to be finished manually, see README)
     ansible.skip_tags = [ "edu-sharing-plugin" ]
   end
