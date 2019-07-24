@@ -12,6 +12,7 @@
   - copy:
       src: /home/vagrant/edu-sharing-plugin/extensions/edu-sharing
       dest: "{{ mediawiki_path }}/extensions"
+      remote_src: yes
     tags:
     - edu-sharing-plugin
 
