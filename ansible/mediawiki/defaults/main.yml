@@ -5,8 +5,8 @@ hostname: '{{ansible_fqdn}}'
 mediawiki_dir: ''
 mediawiki_path: '/srv/{{instance_name}}'
 mediawiki_language: 'en'
-# REL1_33 does not work with edu-shargin currently
-mediawiki_version: REL1_31
+# REL1_33 does not work at all with edu-shargin currently and versions >= 1.29.0 removed deprecated api (https://www.mediawiki.org/wiki/Manual:Hooks/ArticleSave) that edu-sharing is using...
+mediawiki_version: REL1_28
 server_name: '{% if subdomain %}{{subdomain}}.{% endif %}{{hostname}}'
 base_uri: 'http://{{server_name}}/{{mediawiki_dir}}'
 

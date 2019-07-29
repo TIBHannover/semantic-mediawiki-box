@@ -9,6 +9,15 @@
     tags:
     - edu-sharing-plugin
 
+  - name: Clone WikiEditor Plugin for Wiki before 1.31
+    git:
+      repo: 'https://github.com/wikimedia/mediawiki-extensions-WikiEditor.git'
+      dest: '{{ mediawiki_path }}/extensions/WikiEditor'
+      version: "{{mediawiki_version|default('HEAD')}}"
+      force: yes
+    tags:
+    - edu-sharing-plugin
+
   - copy:
       src: /home/vagrant/edu-sharing-plugin/extensions/edu-sharing
       dest: "{{ mediawiki_path }}/extensions"
