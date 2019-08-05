@@ -7,7 +7,7 @@ Dieses Projekt bietet die Möglichkeit, ein MediaWiki mit minimalem Aufwand in e
 
 Die folgenden Schritte im Terminal (Linux/macOS) oder in der GitBash (Windows) ausführen.
 ```
-git clone https://git.tib.eu/boxes/semantic-mediawiki-box.git
+git clone https://github.com/TIBHannover/semantic-mediawiki-box.git
 cd semantic-mediawiki-box
 vagrant up
 ```
