@@ -1,6 +1,6 @@
 # Verknüpfung mit edu-sharing (optionales Plugin)
 
-* Der edu-sharing-plugin Task wird ausgeführt, wenn im Vagrantfile der Eintrag "ansible.skip_tags = [ "edu-sharing-plugin" ]" entfernt/einkommentiert ist.
+* Der edu-sharing-plugin Task wird ausgeführt, wenn in der Datei `group_vars/all.yml` der Eintrag `install_edu_sharing_plugin` auf `true` gesetzt ist.
 * Wurde bei der Installation der edu-sharing-plugin Task ausgeführt, dann wurde das edu-sharing-plugin bereits ins Mediawiki kopiert und muss nun noch manuell beim edu-sharing registriert werden.
 * Mediawiki-installation
     * editieren der {{ mediawiki_path }}/extensions/edu-sharing/conf/homeApplication.properties.xml

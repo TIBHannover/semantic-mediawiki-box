@@ -28,7 +28,5 @@ Vagrant.configure("2") do |config|
     ansible.groups = {
       "mediawiki" => ["local"],
     }
-    # comment/uncomment next line to activate/deavtivate pre-installation of edu-sharing-plugin (=> has to be finished manually, see README)
-    ansible.skip_tags = [ "edu-sharing-plugin" ]
   end
 end

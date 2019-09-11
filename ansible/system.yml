@@ -7,4 +7,5 @@
     - php
     - mediawiki
     - semantic
-    - edu-sharing-plugin
+    - role: edu-sharing-plugin
+      when: install_edu_sharing_plugin
