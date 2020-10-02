@@ -60,6 +60,11 @@
     name: /etc/nginx/sites-available/default
     state: absent
 
+- name: 7c. Set LocalSettings.php
+  template:
+    src: LocalSettings.php
+    dest: /srv/MediaWiki/LocalSettings.php
+
 - name: 8a. Enable site
   file:
     src: /etc/nginx/sites-available/mediawiki
