@@ -50,6 +50,14 @@
     line: '$wgArticlePath = "/$1";'
     regexp: '\$wgArticlePath'
 
+- name: Change owner and group of images directory
+  file:
+    path: '{{ mediawiki_path }}/images'
+    state: directory
+    owner: "www-data"
+    group: "www-data"
+    recurse: yes
+
 - name: 7a. Set MediWiki config in nginx
   template:
     src: mediawiki.nginx.conf.jinja2
