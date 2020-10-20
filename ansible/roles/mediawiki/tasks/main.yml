@@ -43,13 +43,7 @@
     {{instance_name}} {{admin_user.name}}
   args:
     creates: '{{ mediawiki_path }}/LocalSettings.php'
-
-- name: 6. Enable clean URL's
-  lineinfile:
-    dest: '{{ mediawiki_path }}/LocalSettings.php'
-    line: '$wgArticlePath = "/$1";'
-    regexp: '\$wgArticlePath'
-
+    
 - name: Change owner and group of images directory
   file:
     path: '{{ mediawiki_path }}/images'
@@ -71,7 +65,7 @@
 - name: 7c. Set LocalSettings.php
   template:
     src: LocalSettings.php
-    dest: /srv/MediaWiki/LocalSettings.php
+    dest: '{{ mediawiki_path }}/LocalSettings.php'
 
 - name: 8a. Enable site
   file:
