@@ -67,6 +67,9 @@
     src: LocalSettings.php
     dest: '{{ mediawiki_path }}/LocalSettings.php'
 
+- include: extensions.yml
+  tags: extensions
+
 - name: 8a. Enable site
   file:
     src: /etc/nginx/sites-available/mediawiki

@@ -1,0 +1,19 @@
+
+- name: Download extensions
+  git:
+    repo: '{{ item.uri | default("https://gerrit.wikimedia.org/r/mediawiki/extensions/" + item.name) }}'
+    dest: '{{ mediawiki_path }}/extensions/{{ item.name }}'
+    version: "{{ item.version | default(mediawiki_version) | default('HEAD') }}"
+  loop: '{{ mediawiki_extensions | default([], true) }}'
+
+- name: Configure extensions
+  lineinfile:
+    path: '{{ mediawiki_path }}/LocalSettings.php'
+    line: "wfLoadExtension( '{{ item.name }}' );"
+    regexp: "^wfLoadExtension( '{{ item.name }}' );$"
+  loop: '{{ mediawiki_extensions | default([], true) }}'
+
+- name: Run the maintenance script
+  shell: php maintenance/update.php --skip-external-dependencies
+  args:
+    chdir: '{{ mediawiki_path }}'

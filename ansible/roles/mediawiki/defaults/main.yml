@@ -14,6 +14,22 @@ base_uri: 'http://{{server_name}}/{{mediawiki_dir}}'
 mediawiki_skins:
 - Vector
 
+# list the extensions that should be installed (standard extensions can be found here: https://phabricator.wikimedia.org/source/extensions/browse/master/; other extensions with different installation uri can be configured via optional parameters)
+# format of each entry:
+#   name    - exact name of the extension
+#   version - (optional) version of the extension, uses 'mediawiki_version' as default
+#   uri     - (optional) git uri of the extension, default: https://gerrit.wikimedia.org/r/mediawiki/extensions/{{ item.name }}
+mediawiki_extensions:
+#  - name: Math
+#  #- name: BlueSpiceChecklist 
+#  #  version: 3.1.11           # => minimum mediawiki 1.31.0
+#  - name: Cite
+#  - name: Quiz
+#  - name: InputBox
+#  - name: EmbedVideo
+#    uri: https://gitlab.com/hydrawiki/extensions/EmbedVideo
+#    version: v2.7.4
+
 admin_user:
   name: root
   pass: admin
